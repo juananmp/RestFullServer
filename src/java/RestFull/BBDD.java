@@ -27,6 +27,7 @@ import javax.sql.DataSource;
 import Objeto.AgendaObject;
 import Objeto.PersonaObj;
 import Objeto.UsuarioObj;
+import java.util.ArrayList;
 /**
  *
  * @author janto
@@ -96,6 +97,7 @@ public class BBDD extends HttpServlet {
         }
         return false;
     }
+    
 //    public AgendaObject cargarAgenda(String usuario) {
 //        init();
 //        Connection connection = null;
@@ -104,7 +106,8 @@ public class BBDD extends HttpServlet {
 //            //System.out.println("ENTROOOOOO");
 //            String query = null;
 //            query = "select nombre, correo, telefono from agenda.contactos where id_agenda = (select id from agenda.agendas where id_usuario = (select id from agenda.usuarios where Nombre = '"+usuario+"')); ";
-//            
+//             Statement statement = null; 
+//       ResultSet resultSet;
 //
 //            connection= datasource.getConnection();
 //            statement = connection.createStatement();
@@ -121,11 +124,38 @@ public class BBDD extends HttpServlet {
 //            System.out.println("No siguiente palabra");
 //            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
 //
-//        }finally {
-//        destroy(connection);
+////        }finally {
+////        destroy(connection);
 //    }
 //        return a;
 //    }
+    
+    public Map<String, Integer> listarAgenda(String usuario){
+        init();
+        Connection connection = null;
+    Statement statement = null; 
+       ResultSet resultSet;
+        try {
+            System.out.println("ENTROOOOOO");
+            String query = null;
+             query = "select nombre, id_usuario from agenda where id_usuario= (select id from usuario where user = 'Juan');";      
+             Map<String, Integer> lista = new HashMap<String, Integer>();
+             
+            connection= datasource.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                lista.put(resultSet.getString("nombre"), resultSet.getInt("id_usuario"));
+               
+            }
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println("No siguiente palabra");
+            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
 
     
     @Override

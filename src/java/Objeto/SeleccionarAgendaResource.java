@@ -5,6 +5,7 @@
  */
 package Objeto;
 
+import RestFull.BBDD;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -48,7 +49,7 @@ public class SeleccionarAgendaResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public String getXml(@Context HttpHeaders httpheaders) {
+    public MostrarAgenda getXml(@Context HttpHeaders httpheaders) {
         try {
             //GET   http://localhost:8080/RestFullServer/webresources/seleccionarAgenda
             //Authorization   eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
@@ -64,13 +65,17 @@ public class SeleccionarAgendaResource {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
             DecodedJWT jwtv = verifier.verify(token);
-           return "valido";
+            BBDD bd = new BBDD();
+            // Ahora cuando hagamos el get ya deberia si le pasaos el token mostrar las agendas asociadas a ese token
+            MostrarAgenda ma = new MostrarAgenda();
+            ma.setAgenda(bd.listarAgenda(user));
+           return ma;
         } catch (IllegalArgumentException ex) {
-           return "no valido";
+           return null;
         } catch (UnsupportedEncodingException ex) {
-            return "no soportado";
+            return null;
         }catch(JWTVerificationException ex){
-            return "no valido";
+            return null;
             
         }
         
