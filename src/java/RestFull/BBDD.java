@@ -139,13 +139,14 @@ public class BBDD extends HttpServlet {
         try {
             System.out.println("ENTROOOOOO");
             String query = null;
-             query = "select nombre, id_usuario from agenda where id_usuario= (select id from usuario where user = 'Juan');";      
+             query = "select nombre, id_usuario from agenda where id_usuario= (select id from usuario where user = '"+usuario+"');";      
              Map<String, Integer> lista = new HashMap<String, Integer>();
              
             connection= datasource.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
+                System.out.println("Hola");
                 lista.put(resultSet.getString("nombre"), resultSet.getInt("id_usuario"));
                
             }

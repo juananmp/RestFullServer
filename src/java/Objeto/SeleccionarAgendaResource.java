@@ -56,15 +56,20 @@ public class SeleccionarAgendaResource {
             //cojo token de la cabecera authorizacion
             //https://jwt.io
             String token = httpheaders.getHeaderString("Authorization");
+            System.out.println("TOKEN +"+token);
             //decodificas, interpretarlo
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
+             DecodedJWT jwtv = verifier.verify(token);
+             
+             System.out.println(jwtv.getSubject());
             DecodedJWT jwt = JWT.decode(token);
             //obtengo el claim
             Map<String, Claim> claim = jwt.getClaims();
             String user = claim.get("user").asString();
             System.out.println(user);
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
-            DecodedJWT jwtv = verifier.verify(token);
+            
+           
             BBDD bd = new BBDD();
             // Ahora cuando hagamos el get ya deberia si le pasaos el token mostrar las agendas asociadas a ese token
             MostrarAgenda ma = new MostrarAgenda();
