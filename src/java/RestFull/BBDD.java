@@ -99,6 +99,53 @@ public class BBDD extends HttpServlet {
         return false;
     }
     
+    public PersonaObj enviarPersona(String nombre, int id_agenda){
+         init();
+        Connection connection = null;
+    Statement statement = null; 
+       ResultSet resultSet;
+        try {
+            //System.out.println("ENTROOOOOO");
+            String query = null;
+            query = "select * from contactos where nombre ='"+nombre+"' and id_agenda = '"+id_agenda+"'";
+            
+
+            connection= datasource.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            PersonaObj po = new PersonaObj();
+            
+            while (resultSet.next()) {
+               po.setName(resultSet.getString("nombre"));
+               po.setEmail(resultSet.getString("correo"));
+               po.setTelephone(Integer.parseInt(resultSet.getString("telefono")));
+                }
+
+            return po;
+        } catch (SQLException ex) {
+            return null;
+        }
+       
+    }
+    
+    public void crearContacto(PersonaObj po, int id_agenda){
+         init();
+        Connection connection = null;
+        Statement statement = null; 
+       ResultSet resultSet;
+        try {
+            String query = null;
+            query = "insert into contactos values(null,'" + po.getName() + "', '"+po.getEmail()+"','"+po.getTelephone()+"',"+id_agenda+")";
+
+            connection = datasource.getConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al crear usuario");
+        }
+    }
 //    public AgendaObject cargarAgenda(String usuario) {
 //        init();
 //        Connection connection = null;
