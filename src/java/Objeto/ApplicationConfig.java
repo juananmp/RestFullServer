@@ -32,6 +32,7 @@ public class ApplicationConfig extends Application {
         resources.add(Objeto.ContactoServicioResource.class);
         resources.add(Objeto.CrearUsuario.class);
         resources.add(Objeto.IniciarSesion.class);
+        resources.add(Objeto.NuevaAgendaServicioResource.class);
         resources.add(Objeto.SeleccionarAgendaResource.class);
        
     }

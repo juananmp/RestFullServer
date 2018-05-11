@@ -25,9 +25,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import Objeto.AgendaObject;
+import Objeto.NuevaAgendaObj;
 import Objeto.PersonaObj;
 import Objeto.UsuarioObj;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 /**
  *
  * @author janto
@@ -146,37 +154,25 @@ public class BBDD extends HttpServlet {
             System.out.println("Error al crear usuario");
         }
     }
-//    public AgendaObject cargarAgenda(String usuario) {
-//        init();
-//        Connection connection = null;
-//        AgendaObject a = new AgendaObject();
-//        try {
-//            //System.out.println("ENTROOOOOO");
-//            String query = null;
-//            query = "select nombre, correo, telefono from agenda.contactos where id_agenda = (select id from agenda.agendas where id_usuario = (select id from agenda.usuarios where Nombre = '"+usuario+"')); ";
-//             Statement statement = null; 
-//       ResultSet resultSet;
-//
-//            connection= datasource.getConnection();
-//            statement = connection.createStatement();
-//            resultSet = statement.executeQuery(query);
-//            while (resultSet.next()) {
-//                PersonaObj per = new PersonaObj();
-//                per.setName(resultSet.getString("nombre"));
-//                per.setEmail(resultSet.getString("correo"));
-//                per.setTelephone(Integer.parseInt(resultSet.getString("telefono")));
-//                a.getPersonaObj().add(per);
-//            }
-//            return a;
-//        } catch (SQLException ex) {
-//            System.out.println("No siguiente palabra");
-//            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
-//
-////        }finally {
-////        destroy(connection);
-//    }
-//        return a;
-//    }
+
+    public void NuevaAgenda(String id_user, String nombre) {
+        init();
+        Connection connection = null;
+         Statement statement = null; 
+       ResultSet resultSet;
+        try {
+            String query = null;
+            query = "insert into agenda(nombre, id_usuario) values('" + nombre + "', '" + id_user + "')";
+
+            connection = datasource.getConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al crear agenda");
+        }
+    }
     
     public Map<String, Integer> listarAgenda(String usuario){
         init();
