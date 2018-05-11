@@ -58,7 +58,10 @@ public class NuevaAgendaServicioResource {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public void putXml(@Context HttpHeaders httpheaders,NuevaAgendaObj na) throws UnsupportedEncodingException {
-
+//POST http://localhost:8080/RestFullServer/webresources/NuevaAgendaServicio
+//Authorization   eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
+//Content-Type     application/xml
+//<NuevaAgendaObj> <nuevaAgendaObj>1</nuevaAgendaObj><nuevaAgendaObj>juananAgenda</nuevaAgendaObj></NuevaAgendaObj>  
         try {
             //TODO return proper representation object
             String token = httpheaders.getHeaderString("Authorization");

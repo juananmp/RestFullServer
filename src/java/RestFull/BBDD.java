@@ -173,6 +173,28 @@ public class BBDD extends HttpServlet {
             System.out.println("Error al crear agenda");
         }
     }
+    public String IdUsuario(String user, String pass) {
+        init();
+        Connection connection = null;
+         Statement statement = null; 
+       ResultSet resultSet;
+       
+        try {
+            //System.out.println("ENTROOOOOO");
+            String query = null;
+            query = "select * from usuario where user ='" + user + "' and password = '" + pass + "'";
+
+            connection = datasource.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            String id = "";
+            while (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
+            return id;
+        } catch (SQLException ex) {
+            return null;
+        } }
     
     public Map<String, Integer> listarAgenda(String usuario){
         init();
