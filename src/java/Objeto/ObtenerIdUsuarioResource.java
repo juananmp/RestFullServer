@@ -37,20 +37,14 @@ public class ObtenerIdUsuarioResource {
      * Retrieves representation of an instance of Objeto.ObtenerIdUsuarioResource
      * @return an instance of java.lang.String
      */
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
+    
     /**
      * PUT method for updating or creating an instance of ObtenerIdUsuarioResource
      * @param content representation for the resource
      */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public String getXml(UsuarioObj us) {
+    public String postXml(UsuarioObj us) {
         //POST   http://localhost:8080/RestFullServer/webresources/ObtenerIdUsuario
         //Authorization eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
         //Content-Type  application/xml

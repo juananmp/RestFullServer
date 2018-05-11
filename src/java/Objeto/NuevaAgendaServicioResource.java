@@ -73,6 +73,7 @@ public class NuevaAgendaServicioResource {
             
             BBDD bd = new BBDD();
             //get(0) id_agenda y get(1) nombre agenda
+            System.out.println(na.getNuevaAgendaObj().get(0)+"....-------------...."+ na.getNuevaAgendaObj().get(1));
             bd.NuevaAgenda(na.getNuevaAgendaObj().get(0), na.getNuevaAgendaObj().get(1));
         } catch (IllegalArgumentException ex) {
             System.out.println("fallo");

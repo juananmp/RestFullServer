@@ -106,7 +106,31 @@ public class BBDD extends HttpServlet {
         }
         return false;
     }
-    
+    public AgendaObject EnviarAgenda(String idA){
+     init();
+        Connection connection = null;
+Statement statement = null; 
+       ResultSet resultSet;
+        try {
+            //System.out.println("ENTROOOOOO");
+            String query = null;
+            query = "select * from contactos where id_agenda =" +idA;
+
+            connection = datasource.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            AgendaObject ag = new AgendaObject();
+            while (resultSet.next()) {
+                PersonaObj p = new PersonaObj();
+                p.setName(resultSet.getString("nombre"));
+                p.setEmail(resultSet.getString("correo"));
+                p.setTelephone(Integer.parseInt(resultSet.getString("telefono")));
+                ag.getPersonaObj().add(p);
+            }
+            return ag;
+        } catch (SQLException ex) {
+            return null;
+        }}
     public PersonaObj enviarPersona(String nombre, int id_agenda){
          init();
         Connection connection = null;
@@ -147,7 +171,7 @@ public class BBDD extends HttpServlet {
 
             connection = datasource.getConnection();
             statement = connection.createStatement();
-            statement.executeUpdate(query);
+            statement.execute(query);
 
         } catch (SQLException ex) {
             Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);

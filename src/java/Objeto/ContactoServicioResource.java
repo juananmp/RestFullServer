@@ -49,11 +49,12 @@ public class ContactoServicioResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public PersonaObj enviarPersona(@Context HttpHeaders httpheaders, @QueryParam("nombre") String nombre, @QueryParam("id_agenda") int id_agenda) {
+    public PersonaObj enviarPersona(@Context HttpHeaders httpheaders, @QueryParam("nombre") String nombre, @QueryParam("id") int id_agenda) {
         //get    http://localhost:8080/RestFullServer/webresources/contactoServicio?nombre=juanan&id_agenda=1
         //Authorization   eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
         
         try {
+            System.out.println(nombre + " ---esto es id y agenda "+id_agenda);
             String token = httpheaders.getHeaderString("Authorization");
             System.out.println("TOKEN +"+token);
             //decodificas, interpretarlo
@@ -90,6 +91,8 @@ public class ContactoServicioResource {
             JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
             DecodedJWT jwtv = verifier.verify(token);
             
+            
+              System.out.println("objeto "+ contacto.getPo().toString()+" id " + contacto.getId_agenda());
             BBDD bd = new BBDD();
             bd.crearContacto(contacto.getPo(), contacto.getId_agenda());
         } catch (IllegalArgumentException ex) {

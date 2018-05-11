@@ -35,6 +35,9 @@ public class ApplicationConfig extends Application {
         resources.add(Objeto.NuevaAgendaServicioResource.class);
         resources.add(Objeto.ObtenerIdUsuarioResource.class);
         resources.add(Objeto.SeleccionarAgendaResource.class);
+        resources.add(Objeto.ValidarAgendaResource.class);
+        resources.add(Objeto.ValidarPersonaResource.class);
+        resources.add(Objeto.VerAgendaResource.class);
        
     }
     
