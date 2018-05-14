@@ -63,6 +63,7 @@ public class ValidarPersonaResource {
     public String ValPersona(@QueryParam("nombre") String nombre,@QueryParam("correo") String correo,@QueryParam("telefono") int telefono) {
     try {
             //GET http://localhost:8080/RestFullServer/webresources/ValidarPersona?nombre=rafa&correo=j@g.com&telefono=21
+         System.out.println(" ENTRO?????? Servidor: "+nombre + " " + correo + " " + telefono);
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             URL resourceXSD = null;
@@ -98,8 +99,10 @@ public class ValidarPersonaResource {
 
         } catch (IOException ex) {
            // Logger.getLogger(ValidarAgendaResource.class.getName()).log(Level.SEVERE, null, ex);
+           return "no valido";
         } catch (JAXBException ex) {
             //Logger.getLogger(ValidarAgendaResource.class.getName()).log(Level.SEVERE, null, ex);
+        return "no valido";
         } catch (SAXException ex) {
             //Logger.getLogger(ValidarAgendaResource.class.getName()).log(Level.SEVERE, null, ex);
         }

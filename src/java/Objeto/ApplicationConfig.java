@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(Objeto.ContactoServicioResource.class);
         resources.add(Objeto.CrearUsuario.class);
+        resources.add(Objeto.EnviarAgendaResource.class);
         resources.add(Objeto.IniciarSesion.class);
         resources.add(Objeto.NuevaAgendaServicioResource.class);
         resources.add(Objeto.ObtenerIdUsuarioResource.class);
