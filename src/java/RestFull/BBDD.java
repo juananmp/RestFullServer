@@ -27,6 +27,7 @@ import javax.sql.DataSource;
 import Objeto.AgendaObject;
 import Objeto.NuevaAgendaObj;
 import Objeto.PersonaObj;
+import Objeto.UpdateObjeto;
 import Objeto.UsuarioObj;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -106,6 +107,33 @@ public class BBDD extends HttpServlet {
 //        destroy(connection);
     }
     }
+    
+     public void actualizarUsuario(UpdateObjeto uo) {
+        init();
+        String query = null;
+          
+           query = " update contactos set nombre = '" + uo.getName() +  "', correo = '" + uo.getEmail() + "', telefono = '" + uo.getTelephone()+ "' where id =" +uo.getId();
+          Statement statement = null; 
+        Connection connection = null;
+        try {
+            
+           System.out.println("Hola deleeeeeeeeeeeete");
+           connection = datasource.getConnection();
+            statement = connection.createStatement();
+            statement.execute(query);
+           // System.out.println("usuario despues update query" + nombre);
+            statement.close();
+            connection.close();
+           // System.out.println("usuario despues close" + nombre);
+
+        } catch (SQLException ex) {
+           
+            System.out.println("Error al actualizar usuario");
+//        }finally {
+//        destroy(connection);
+    }
+    }
+    
     public boolean InicioSesion(UsuarioObj u){
          init();
         Connection connection = null;
