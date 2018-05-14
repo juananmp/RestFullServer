@@ -21,6 +21,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -48,8 +49,9 @@ public class BorrarContactoResource {
      * @param content representation for the resource
      */
     @DELETE
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void putXml(@Context HttpHeaders httpheaders,@QueryParam("nombre") String nombre, @QueryParam("idA") String idA) {
+    //@Consumes(MediaType.APPLICATION_XML)
+    @Path("/{nombre}/{idA}")
+    public void putXml(@Context HttpHeaders httpheaders,@PathParam("nombre")String nombre, @PathParam("idA")String idA) {
         try {
             String token = httpheaders.getHeaderString("Authorization");
             System.out.println("TOKEN +"+token);
@@ -59,8 +61,10 @@ public class BorrarContactoResource {
             DecodedJWT jwtv = verifier.verify(token);
             
             BBDD bd = new BBDD();
-            
-            bd.borrarUsuario(nombre, idA);
+            System.out.println("se ha nbooooooooooooooooooooooorrradpppppppppppppp");
+           System.out.println(nombre+ " nombreeeeeeeeeeeeeeeeeee" +idA + " idaaaaaaa");
+            bd.borrarUsuario(nombre,idA);
+             
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(BorrarContactoResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
