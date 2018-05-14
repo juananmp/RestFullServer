@@ -78,10 +78,33 @@ public class BBDD extends HttpServlet {
             System.out.println("Error al crear usuario");
 //        }finally {
 //        destroy(connection);
+    }   
+        
     }
-        
-        
+    public void borrarUsuario(String nombre, String idA) {
+        init();
+        String query = null;
+          
+           query = " delete from contactos where nombre = '" + nombre +  "' AND id_agenda= "+idA;
+          Statement statement = null; 
+        Connection connection = null;
+        try {
+            
+           System.out.println("Hola deleeeeeeeeeeeete");
+           connection = datasource.getConnection();
+            statement = connection.createStatement();
+            statement.execute(query);
+            System.out.println("usuario despues update query" + nombre);
+            statement.close();
+            connection.close();
+            System.out.println("usuario despues close" + nombre);
 
+        } catch (SQLException ex) {
+           
+            System.out.println("Error al crear usuario");
+//        }finally {
+//        destroy(connection);
+    }
     }
     public boolean InicioSesion(UsuarioObj u){
          init();

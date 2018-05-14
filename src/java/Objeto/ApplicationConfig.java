@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(Objeto.BorrarContactoResource.class);
         resources.add(Objeto.ContactoServicioResource.class);
         resources.add(Objeto.CrearUsuario.class);
         resources.add(Objeto.EnviarAgendaResource.class);
