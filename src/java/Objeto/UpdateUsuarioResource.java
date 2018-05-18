@@ -50,9 +50,10 @@ public class UpdateUsuarioResource {
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
    //@PathParam("/{nombre}/{correo}/{telefono}/{id}")
-    public void putXml(@Context HttpHeaders httpheaders, UpdateObjeto uo) {
+    public void putXml(@Context HttpHeaders httpheaders, ListaContacto lo) {
        
         try {
+             
             String token = httpheaders.getHeaderString("Authorization");
             System.out.println("TOKEN +"+token);
             //decodificas, interpretarlo
@@ -61,7 +62,10 @@ public class UpdateUsuarioResource {
             DecodedJWT jwtv = verifier.verify(token);
             
             BBDD bd = new BBDD();
-            bd.actualizarUsuario(uo);
+//            System.out.println(lo.getPersona().get(0).getName().toString());
+        
+            bd.actualizarUsuario(lo.getPersona().get(0).getName(),lo.getPersona().get(0).getEmail(),String.valueOf(lo.getPersona().get(0).getTelephone()),lo.getIdContacto().get(0));
+            
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(UpdateUsuarioResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {

@@ -108,11 +108,11 @@ public class BBDD extends HttpServlet {
     }
     }
     
-     public void actualizarUsuario(UpdateObjeto uo) {
+     public void actualizarUsuario(String nombre, String correo, String telefono, String idContacto) {
         init();
         String query = null;
           
-           query = " update contactos set nombre = '" + uo.getName() +  "', correo = '" + uo.getEmail() + "', telefono = '" + uo.getTelephone()+ "' where id =" +uo.getId();
+           query = " update contactos set nombre = '" + nombre +  "', correo = '" + correo + "', telefono = '" + telefono+ "' where id =" +idContacto;
           Statement statement = null; 
         Connection connection = null;
         try {
@@ -120,7 +120,7 @@ public class BBDD extends HttpServlet {
            System.out.println("Hola deleeeeeeeeeeeete");
            connection = datasource.getConnection();
             statement = connection.createStatement();
-            statement.execute(query);
+            statement.executeUpdate(query);
            // System.out.println("usuario despues update query" + nombre);
             statement.close();
             connection.close();
