@@ -13,6 +13,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -39,7 +40,8 @@ public class VerAgendaResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public AgendaObject getXml(@QueryParam("id_agenda") String id) {
+   @Path("/{id_agenda}")
+    public AgendaObject getXml(@PathParam("id_agenda") String id) {
         //devuelve todas las personas de la agenda 1 = http://localhost:8080/RestFullServer/webresources/VerAgenda?id_agenda=1
         BBDD bd = new BBDD();
        return bd.EnviarAgenda(id);

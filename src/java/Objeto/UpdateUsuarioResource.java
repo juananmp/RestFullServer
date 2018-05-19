@@ -9,6 +9,7 @@ import RestFull.BBDD;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -49,9 +50,9 @@ public class UpdateUsuarioResource {
     
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
-   //@PathParam("/{nombre}/{correo}/{telefono}/{id}")
-    public void putXml(@Context HttpHeaders httpheaders, ListaContacto lo) {
-       
+   @Path("/{id}")
+    public void putXml(@Context HttpHeaders httpheaders,PersonaObj obj, @PathParam("id") String id) {
+       // ListaContacto lo
         try {
              
             String token = httpheaders.getHeaderString("Authorization");
@@ -63,13 +64,15 @@ public class UpdateUsuarioResource {
             
             BBDD bd = new BBDD();
 //            System.out.println(lo.getPersona().get(0).getName().toString());
-        
-            bd.actualizarUsuario(lo.getPersona().get(0).getName(),lo.getPersona().get(0).getEmail(),String.valueOf(lo.getPersona().get(0).getTelephone()),lo.getIdContacto().get(0));
-            
+       //,lo.getIdContacto().get(0) 
+          // bd.actualizarUsuario(lo.getPersona().get(0).getName(),lo.getPersona().get(0).getEmail(),String.valueOf(lo.getPersona().get(0).getTelephone()), id);
+            bd.actualizarUsuario(obj.getName(), obj.getEmail(), String.valueOf(obj.getTelephone()), id);
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(UpdateUsuarioResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(UpdateUsuarioResource.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(JWTVerificationException e){
+           
         }
     }
 }

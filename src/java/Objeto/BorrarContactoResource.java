@@ -50,6 +50,7 @@ public class BorrarContactoResource {
      */
     @DELETE
     //@Consumes(MediaType.APPLICATION_XML)
+    //http://localhost:8080/RestFullServer/webresources/BorrarContacto/pesao/2
     @Path("/{nombre}/{idA}")
     public void putXml(@Context HttpHeaders httpheaders,@PathParam("nombre")String nombre, @PathParam("idA")String idA) {
         try {

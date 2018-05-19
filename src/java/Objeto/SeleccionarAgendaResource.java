@@ -23,6 +23,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
@@ -48,8 +49,10 @@ public class SeleccionarAgendaResource {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("/{user}")
     @Produces(MediaType.APPLICATION_XML)
-    public MostrarAgenda getXml(@Context HttpHeaders httpheaders) {
+    public MostrarAgenda getXml(@Context HttpHeaders httpheaders, 
+            @PathParam("user")String user) {
         try {
             //GET   http://localhost:8080/RestFullServer/webresources/seleccionarAgenda
             //Authorization   eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
@@ -66,7 +69,7 @@ public class SeleccionarAgendaResource {
             DecodedJWT jwt = JWT.decode(token);
             //obtengo el claim
             Map<String, Claim> claim = jwt.getClaims();
-            String user = claim.get("user").asString();
+            user = claim.get("user").asString();
             System.out.println(user);
             
            

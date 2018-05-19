@@ -22,6 +22,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -48,9 +49,11 @@ public class ContactoServicioResource {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_XML)
-    public PersonaObj enviarPersona(@Context HttpHeaders httpheaders, @QueryParam("nombre") String nombre, @QueryParam("id") int id_agenda) {
+    public PersonaObj enviarPersona(@Context HttpHeaders httpheaders, @QueryParam("nombre") String nombre, @PathParam("id") int id_agenda) {
         //get    http://localhost:8080/RestFullServer/webresources/contactoServicio?nombre=juanan&id_agenda=1
+        
         //Authorization   eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoianVhbiJ9.UVuJjz-lZThM8dOQPyx6gAfJj2IyWSprURW03fSnHeM
         
         try {

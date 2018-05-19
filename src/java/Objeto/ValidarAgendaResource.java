@@ -20,6 +20,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.XMLConstants;
@@ -62,9 +63,10 @@ public class ValidarAgendaResource {
      * @param content representation for the resource
      */
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
+   // @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String ValAgenda(@QueryParam("idA") String idAgenda) {
+     @Path("/{idA}")
+    public String ValAgenda(@PathParam("idA") String idAgenda) {
     try {
             //http://localhost:8080/RestFullServer/webresources/ValidarAgenda?idA=1
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

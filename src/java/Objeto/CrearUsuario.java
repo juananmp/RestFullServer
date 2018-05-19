@@ -11,6 +11,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -48,11 +49,14 @@ public class CrearUsuario {
     
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(UsuarioObj u) {
+    @Path("/{user}/{password}")
+    public void putXml(UsuarioObj u, @PathParam("user")String user, @PathParam("password")String password) {
+        //Pasarle el objeto por xml
       BBDD bd = new BBDD();
         System.out.println("kldfjwjopej4pojgp356");
         System.out.println("antes metodo put" + u.user);
-      bd.crearUsuario(u.getUser(), u.getPassword());
+      //bd.crearUsuario(u.getUser(), u.getPassword());
+      bd.crearUsuario(user, password);
       System.out.println("despues metodo put" + u.user);
     }
 }

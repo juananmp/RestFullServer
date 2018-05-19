@@ -18,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.XMLConstants;
@@ -58,9 +59,10 @@ public class ValidarPersonaResource {
      * @param content representation for the resource
      */
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
+   // @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String ValPersona(@QueryParam("nombre") String nombre,@QueryParam("correo") String correo,@QueryParam("telefono") int telefono) {
+    @Path("/{nombre}/{correo}/{telefono}")
+    public String ValPersona(@PathParam("nombre") String nombre,@PathParam("correo") String correo,@PathParam("telefono") int telefono) {
     try {
             //GET http://localhost:8080/RestFullServer/webresources/ValidarPersona?nombre=rafa&correo=j@g.com&telefono=21
          System.out.println(" ENTRO?????? Servidor: "+nombre + " " + correo + " " + telefono);
