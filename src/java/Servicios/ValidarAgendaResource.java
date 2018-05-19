@@ -77,15 +77,7 @@ public class ValidarAgendaResource {
             //http://localhost:8080/RestFullServer/webresources/ValidarAgenda?idA=1
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            String token = httpheaders.getHeaderString("Authorization");
-            System.out.println("TOKEN +"+token);
-            //decodificas, interpretarlo
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
-             DecodedJWT jwtv = verifier.verify(token);
-             
-             System.out.println(jwtv.getSubject());
-            DecodedJWT jwt = JWT.decode(token);
+           
             
             URL resourceXSD = null;
             URL resourceXML = null;

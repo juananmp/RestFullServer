@@ -75,15 +75,7 @@ public class ValidarPersonaResource {
          System.out.println(" ENTRO?????? Servidor: "+nombre + " " + correo + " " + telefono);
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            String token = httpheaders.getHeaderString("Authorization");
-            System.out.println("TOKEN +"+token);
-            //decodificas, interpretarlo
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
-             DecodedJWT jwtv = verifier.verify(token);
-             
-             System.out.println(jwtv.getSubject());
-            DecodedJWT jwt = JWT.decode(token);
+          
             URL resourceXSD = null;
             URL resourceXML = null;
             JAXBContext jAXBcontext = JAXBContext.newInstance(AgendaObject.class);

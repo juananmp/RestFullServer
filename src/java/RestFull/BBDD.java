@@ -150,7 +150,8 @@ public class BBDD extends HttpServlet {
             while (resultSet.next()) {
                 return true;
                 }
-
+                    statement.close();
+                    connection.close();
         } catch (SQLException ex) {
             return false;
         }
@@ -177,7 +178,10 @@ Statement statement = null;
                 p.setTelephone(Integer.parseInt(resultSet.getString("telefono")));
                 ag.getPersonaObj().add(p);
             }
+            statement.close();
+                    connection.close();
             return ag;
+            
         } catch (SQLException ex) {
             return null;
         }}
@@ -202,8 +206,10 @@ Statement statement = null;
                po.setEmail(resultSet.getString("correo"));
                po.setTelephone(Integer.parseInt(resultSet.getString("telefono")));
                 }
-
+statement.close();
+                    connection.close();
             return po;
+            
         } catch (SQLException ex) {
             return null;
         }
@@ -223,6 +229,8 @@ Statement statement = null;
             statement = connection.createStatement();
             statement.execute(query);
 
+            statement.close();
+                    connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al crear usuario");
@@ -242,6 +250,8 @@ Statement statement = null;
             statement = connection.createStatement();
             statement.executeUpdate(query);
 
+            statement.close();
+                    connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(BBDD.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al crear agenda");
@@ -265,6 +275,8 @@ Statement statement = null;
             while (resultSet.next()) {
                 id = resultSet.getString("id");
             }
+            statement.close();
+                    connection.close();
             return id;
         } catch (SQLException ex) {
             return null;
@@ -289,6 +301,8 @@ Statement statement = null;
                 lista.put(resultSet.getString("nombre"), resultSet.getInt("id_usuario"));
                
             }
+            statement.close();
+                    connection.close();
             return lista;
         } catch (SQLException ex) {
             System.out.println("No siguiente palabra");
@@ -324,7 +338,10 @@ Statement statement = null;
      * @return a String containing servlet description
      */
     
-    
+    public void destroy(Connection connection) {
+        
+
+    }
 
     @Override
     public String getServletInfo() {
