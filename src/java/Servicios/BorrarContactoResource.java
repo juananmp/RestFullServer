@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objeto;
+package Servicios;
 
 import RestFull.BBDD;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -18,10 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
@@ -30,31 +31,29 @@ import javax.ws.rs.core.MediaType;
  *
  * @author janto
  */
-@Path("UpdateUsuario")
-public class UpdateUsuarioResource {
+@Path("BorrarContacto")
+public class BorrarContactoResource {
 
-    
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of UpdateUsuarioResource
+     * Creates a new instance of BorrarContactoResource
      */
-    public UpdateUsuarioResource() {
+    public BorrarContactoResource() {
     }
 
+   
     /**
-     * Retrieves representation of an instance of Objeto.UpdateUsuarioResource
-     * @return an instance of java.lang.String
+     * PUT method for updating or creating an instance of BorrarContactoResource
+     * @param content representation for the resource
      */
-    
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-   @Path("/{id}")
-    public void putXml(@Context HttpHeaders httpheaders,PersonaObj obj, @PathParam("id") String id) {
-       // ListaContacto lo
+    @DELETE
+    //@Consumes(MediaType.APPLICATION_XML)
+    //http://localhost:8080/RestFullServer/webresources/BorrarContacto/pesao/2
+    @Path("/{nombre}/{idA}")
+    public void putXml(@Context HttpHeaders httpheaders,@PathParam("nombre")String nombre, @PathParam("idA")String idA) {
         try {
-             
             String token = httpheaders.getHeaderString("Authorization");
             System.out.println("TOKEN +"+token);
             //decodificas, interpretarlo
@@ -63,16 +62,15 @@ public class UpdateUsuarioResource {
             DecodedJWT jwtv = verifier.verify(token);
             
             BBDD bd = new BBDD();
-//            System.out.println(lo.getPersona().get(0).getName().toString());
-       //,lo.getIdContacto().get(0) 
-          // bd.actualizarUsuario(lo.getPersona().get(0).getName(),lo.getPersona().get(0).getEmail(),String.valueOf(lo.getPersona().get(0).getTelephone()), id);
-            bd.actualizarUsuario(obj.getName(), obj.getEmail(), String.valueOf(obj.getTelephone()), id);
+            System.out.println("se ha nbooooooooooooooooooooooorrradpppppppppppppp");
+           System.out.println(nombre+ " nombreeeeeeeeeeeeeeeeeee" +idA + " idaaaaaaa");
+            bd.borrarUsuario(nombre,idA);
+             
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(UpdateUsuarioResource.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BorrarContactoResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(UpdateUsuarioResource.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(JWTVerificationException e){
-           
+            Logger.getLogger(BorrarContactoResource.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }

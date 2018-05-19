@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objeto;
+package Servicios;
 
+import Objeto.AgendaObject;
 import RestFull.BBDD;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.StringReader;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -22,11 +21,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -36,39 +37,33 @@ import org.xml.sax.SAXException;
 /**
  * REST Web Service
  *
- * @author rafael
+ * @author janto
  */
-@Path("ValidarAgenda")
-public class ValidarAgendaResource {
+@Path("ValidarAgendaSinAutenticar")
+public class ValidarAgendaSinAutenticarResource {
 
     @Context
     private UriInfo context;
-     @Context
+      @Context
     private ServletContext servletContext;
 
     /**
-     * Creates a new instance of ValidarAgendaResource
+     * Creates a new instance of ValidarAgendaSinAutenticarResource
      */
-    public ValidarAgendaResource() {
+    public ValidarAgendaSinAutenticarResource() {
     }
 
     /**
-     * Retrieves representation of an instance of REST.ValidarAgendaResource
+     * Retrieves representation of an instance of Objeto.ValidarAgendaSinAutenticarResource
      * @return an instance of java.lang.String
      */
-    
-
-    /**
-     * PUT method for updating or creating an instance of ValidarAgendaResource
-     * @param content representation for the resource
-     */
     @GET
-   // @Consumes(MediaType.TEXT_PLAIN)
+    
     @Produces(MediaType.TEXT_PLAIN)
-     @Path("/{idA}")
-    public String ValAgenda(@PathParam("idA") String idAgenda) {
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String ValAgenda(@QueryParam("agenda") String agenda) {
     try {
-            //http://localhost:8080/RestFullServer/webresources/ValidarAgenda?idA=1
+        //http://localhost:8080/RestFullServer/webresources/ValidarAgendaSinAutenticar?agenda=<Agenda><Persona><name>juan</name><email>j@g.com</email><telephone>231</telephone></Persona> </Agenda>
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             URL resourceXSD = null;
@@ -82,11 +77,16 @@ public class ValidarAgendaResource {
             Validator val = schema.newValidator();
             marshaller.setSchema(schema);
             System.out.println("----------------------");
+          
+             JAXBContext jaxbContext = JAXBContext.newInstance(AgendaObject.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+             StringReader reader = new StringReader(agenda);
+            AgendaObject agendaobj = (AgendaObject) unmarshaller.unmarshal(reader);
+        
             
-            BBDD bd = new BBDD();
-            AgendaObject agenda = bd.EnviarAgenda(idAgenda);
+           
             File fich = new File("Agenda.xml");
-            marshaller.marshal(agenda, fich);
+            marshaller.marshal(agendaobj, fich);
             val.validate(new StreamSource(fich));
             System.out.println("----------------------");
             

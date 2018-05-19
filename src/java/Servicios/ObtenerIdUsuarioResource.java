@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objeto;
+package Servicios;
 
+import Objeto.UsuarioObj;
 import RestFull.BBDD;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;

@@ -20,9 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class UsuarioObj implements Serializable{
 
     @XmlElement(name="user")
-    String user;
+   public String user;
     @XmlElement(name="password")
-    String password;
+   public String password;
 //    String token;
 public UsuarioObj(){
     

@@ -27,7 +27,6 @@ import javax.sql.DataSource;
 import Objeto.AgendaObject;
 import Objeto.NuevaAgendaObj;
 import Objeto.PersonaObj;
-import Objeto.UpdateObjeto;
 import Objeto.UsuarioObj;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

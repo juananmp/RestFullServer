@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objeto;
+package Servicios;
 
+import Objeto.AgendaObject;
 import RestFull.BBDD;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -31,46 +29,49 @@ import javax.ws.rs.core.MediaType;
  *
  * @author janto
  */
-@Path("BorrarContacto")
-public class BorrarContactoResource {
+@Path("EnviarAgenda")
+public class EnviarAgendaResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of BorrarContactoResource
+     * Creates a new instance of EnviarAgendaResource
      */
-    public BorrarContactoResource() {
+    public EnviarAgendaResource() {
     }
 
-   
     /**
-     * PUT method for updating or creating an instance of BorrarContactoResource
-     * @param content representation for the resource
+     * Retrieves representation of an instance of Objeto.EnviarAgendaResource
+     * @return an instance of java.lang.String
      */
-    @DELETE
-    //@Consumes(MediaType.APPLICATION_XML)
-    //http://localhost:8080/RestFullServer/webresources/BorrarContacto/pesao/2
-    @Path("/{nombre}/{idA}")
-    public void putXml(@Context HttpHeaders httpheaders,@PathParam("nombre")String nombre, @PathParam("idA")String idA) {
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+   @Path("{idAgenda}")
+    public AgendaObject getXml(@Context HttpHeaders httpheaders,@PathParam("idAgenda")String id) throws UnsupportedEncodingException {
         try {
+            //TODO return proper representation object
             String token = httpheaders.getHeaderString("Authorization");
-            System.out.println("TOKEN +"+token);
             //decodificas, interpretarlo
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm).build(); //Reusable verifier instance
+            System.out.println("++++++++En Persona+++++++++--->"+token);
             DecodedJWT jwtv = verifier.verify(token);
+            BBDD con = new BBDD();
+            return con.EnviarAgenda(id);
             
-            BBDD bd = new BBDD();
-            System.out.println("se ha nbooooooooooooooooooooooorrradpppppppppppppp");
-           System.out.println(nombre+ " nombreeeeeeeeeeeeeeeeeee" +idA + " idaaaaaaa");
-            bd.borrarUsuario(nombre,idA);
-             
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(BorrarContactoResource.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(MostrarAgendaResource.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("no valido");
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(BorrarContactoResource.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(MostrarAgendaResource.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("no valido");
         }
+        return null;
+        
+       
     }
-    
+
+  
+
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Objeto;
+package Servicios;
 
+import Objeto.UsuarioObj;
 import RestFull.BBDD;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -54,9 +55,9 @@ public class CrearUsuario {
         //Pasarle el objeto por xml
       BBDD bd = new BBDD();
         System.out.println("kldfjwjopej4pojgp356");
-        System.out.println("antes metodo put" + u.user);
+//        System.out.println("antes metodo put" + u.user);
       //bd.crearUsuario(u.getUser(), u.getPassword());
       bd.crearUsuario(user, password);
-      System.out.println("despues metodo put" + u.user);
+ //     System.out.println("despues metodo put" + u.user);
     }
 }
